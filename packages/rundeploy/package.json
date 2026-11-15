@@ -1,0 +1,40 @@
+{
+  "name": "rundeploy",
+  "version": "0.1.0",
+  "description": "Официальный CLI для мгновенного деплоя сайтов, SPA, Telegram Mini Apps и serverless-функций на RunDeploy",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "rundeploy": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "rundeploy",
+    "devpass",
+    "deploy",
+    "static",
+    "hosting",
+    "serverless",
+    "cli"
+  ],
+  "homepage": "https://rundeploy.ru",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devpassru/cli.git",
+    "directory": "packages/rundeploy"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outfile dist/index.js --target node --format esm && chmod +x dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build"
+  }
+}
