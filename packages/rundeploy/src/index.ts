@@ -10,7 +10,7 @@ import { runProjectsList } from "./commands/projects.js";
 import { runRollback } from "./commands/rollback.js";
 import { c, printError } from "./ui.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 function printHelp(): void {
   console.log(`${c.bold("rundeploy")} v${VERSION} — CLI для деплоя на RunDeploy (https://rundeploy.ru)

@@ -1,6 +1,6 @@
 {
   "name": "@devpass/rundeploy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Официальный CLI для мгновенного деплоя сайтов, SPA, Telegram Mini Apps и serverless-функций на RunDeploy",
   "license": "MIT",
   "type": "module",
