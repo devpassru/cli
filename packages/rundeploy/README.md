@@ -37,5 +37,5 @@ npx @devpass/rundeploy
 Для автоматических деплоев используйте scoped Deploy Token (`rdp_...`) из настроек проекта:
 
 ```bash
-RUNDEPLOY_TOKEN=rdp_... npx rundeploy ./dist --project prj_...
+RUNDEPLOY_TOKEN=rdp_... npx @devpass/rundeploy ./dist --project prj_...
 ```

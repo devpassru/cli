@@ -6,7 +6,7 @@
 
 | Пакет                               | Описание                                                                                 | Запуск                 |
 | ----------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------- |
-| [`rundeploy`](./packages/rundeploy) | Деплой статики, SPA, Mini Apps и serverless-функций на [RunDeploy](https://rundeploy.ru) | `npx rundeploy ./dist` |
+| [`rundeploy`](./packages/rundeploy) | Деплой статики, SPA, Mini Apps и serverless-функций на [RunDeploy](https://rundeploy.ru) | `npx @devpass/rundeploy ./dist` |
 
 ## Разработка
 
