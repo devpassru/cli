@@ -1,11 +1,11 @@
 {
-  "name": "rundeploy",
+  "name": "@devpass/rundeploy",
   "version": "0.1.0",
   "description": "Официальный CLI для мгновенного деплоя сайтов, SPA, Telegram Mini Apps и serverless-функций на RunDeploy",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "rundeploy": "./dist/index.js"
+    "rundeploy": "dist/index.js"
   },
   "files": [
     "dist",
@@ -27,7 +27,8 @@
     "directory": "packages/rundeploy"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "engines": {
     "node": ">=18.0.0"

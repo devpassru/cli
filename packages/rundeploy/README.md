@@ -1,4 +1,4 @@
-# rundeploy
+# @devpass/rundeploy
 
 Официальный CLI для мгновенного деплоя статических сайтов, SPA, Telegram Mini Apps и serverless-функций (`/api/*`) на [RunDeploy](https://rundeploy.ru).
 
@@ -6,16 +6,16 @@
 
 ```bash
 # Авторизация через API-ключ DevPass (dp_live_...)
-npx rundeploy login
+npx @devpass/rundeploy login
 
 # Деплой папки сборки (автоопределение dist/build/out)
-npx rundeploy ./dist --name my-app
+npx @devpass/rundeploy ./dist --name my-app
 ```
 
 После первого деплоя проект привязывается к `.rundeploy/project.json`, и следующие релизы выполняются одной командой:
 
 ```bash
-npx rundeploy
+npx @devpass/rundeploy
 ```
 
 ## Команды
