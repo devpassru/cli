@@ -60,6 +60,7 @@ export async function clearCredentials(): Promise<void> {
 export async function resolveAuthToken(explicitToken?: string): Promise<string | null> {
   if (explicitToken?.trim()) return explicitToken.trim();
   if (process.env.RUNDEPLOY_TOKEN?.trim()) return process.env.RUNDEPLOY_TOKEN.trim();
+  if (process.env.DEVPASS_TOKEN?.trim()) return process.env.DEVPASS_TOKEN.trim();
   if (process.env.DEVPASS_API_KEY?.trim()) return process.env.DEVPASS_API_KEY.trim();
 
   const creds = await readCredentials();
