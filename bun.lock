@@ -11,11 +11,28 @@
         "typescript": "^5.8.0",
       },
     },
+    "packages/core": {
+      "name": "@devpass/cli-core",
+      "version": "0.1.0",
+    },
     "packages/rundeploy": {
       "name": "@devpass/rundeploy",
+      "version": "0.1.1",
+      "bin": {
+        "rundeploy": "dist/index.js",
+      },
+      "devDependencies": {
+        "@devpass/cli-core": "workspace:*",
+      },
+    },
+    "packages/runport": {
+      "name": "@devpass/runport",
       "version": "0.1.0",
       "bin": {
-        "rundeploy": "./dist/index.js",
+        "runport": "dist/index.js",
+      },
+      "devDependencies": {
+        "@devpass/cli-core": "workspace:*",
       },
     },
   },
@@ -42,7 +59,11 @@
 
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.6.8", "", { "os": "win32", "cpu": "x64" }, "sha512-cD6HvGczZUiAYsY8s2TxxXj2AHFzEdMomvVJfEjzOjBM45nGqIDfBpbtvwGQzDCN8X2yKKk9u1jnDZisT2nxIg=="],
 
+    "@devpass/cli-core": ["@devpass/cli-core@workspace:packages/core"],
+
     "@devpass/rundeploy": ["@devpass/rundeploy@workspace:packages/rundeploy"],
+
+    "@devpass/runport": ["@devpass/runport@workspace:packages/runport"],
 
     "@types/bun": ["@types/bun@1.4.4", "", { "dependencies": { "bun-types": "1.4.4" } }, "sha512-9wkRDXUXK124pEnAutE6n/l18j+i9GC5IAHK8TmX/2nlySETmky0OU6yL5U8pW1AoKh++AN9auDCr647BfurjQ=="],
 

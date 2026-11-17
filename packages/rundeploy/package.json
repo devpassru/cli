@@ -33,6 +33,9 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "devDependencies": {
+    "@devpass/cli-core": "workspace:*"
+  },
   "scripts": {
     "build": "bun build src/index.ts --outfile dist/index.js --target node --format esm && chmod +x dist/index.js",
     "typecheck": "tsc --noEmit",

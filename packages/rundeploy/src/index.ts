@@ -18,7 +18,7 @@ function printHelp(): void {
 ${c.bold("Использование:")}
   rundeploy [dir] [опции]             Быстрый деплой сборки (по умолчанию dist/build/out)
   rundeploy deploy [dir] [опции]      То же самое явно
-  rundeploy login [token]             Сохранить API-ключ DevPass (dp_live_...)
+  rundeploy login [token]             Войти через браузер (или по ключу dp_live_...)
   rundeploy logout                    Удалить локальные учетные данные
   rundeploy whoami                    Показать текущего пользователя и тариф
   rundeploy projects                  Список проектов
@@ -33,6 +33,8 @@ ${c.bold("Опции:")}
   -t, --token <token>     API-ключ (dp_live_...) или Deploy Token (rdp_...)
   -m, --message <text>    Сообщение релиза
       --api-url <url>     Базовый URL API (по умолчанию https://rundeploy.ru)
+      --auth-url <url>    URL DevPass ID (по умолчанию https://id.devpass.ru)
+      --no-browser        Ввести API-ключ вручную вместо входа через браузер
       --no-spa            Отключить SPA fallback (/index.html) при создании проекта
       --no-api            Не включать соседнюю папку api/ в архив
       --limit <n>         Количество записей логов (для logs)
@@ -52,6 +54,8 @@ async function main(): Promise<void> {
       token: { type: "string", short: "t" },
       message: { type: "string", short: "m" },
       "api-url": { type: "string" },
+      "auth-url": { type: "string" },
+      "no-browser": { type: "boolean" },
       "no-spa": { type: "boolean" },
       "no-api": { type: "boolean" },
       limit: { type: "string" },
@@ -100,7 +104,12 @@ async function main(): Promise<void> {
       break;
 
     case "login":
-      await runLogin({ ...commonFlags, tokenArg: rest[0] });
+      await runLogin({
+        ...commonFlags,
+        tokenArg: rest[0],
+        noBrowser: Boolean(values["no-browser"]),
+        authUrl: typeof values["auth-url"] === "string" ? values["auth-url"] : undefined,
+      });
       break;
 
     case "logout":

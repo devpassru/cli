@@ -1,0 +1,45 @@
+{
+  "name": "@devpass/runport",
+  "version": "0.1.0",
+  "description": "Официальный CLI для SSH-туннелей, логов вебхуков и визуального ревью на RunPort",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "runport": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "runport",
+    "devpass",
+    "tunnel",
+    "ssh",
+    "localhost",
+    "webhook",
+    "review",
+    "cli"
+  ],
+  "homepage": "https://runport.ru",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devpassru/cli.git",
+    "directory": "packages/runport"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@devpass/cli-core": "workspace:*"
+  },
+  "scripts": {
+    "build": "bun build src/index.ts --outfile dist/index.js --target node --format esm && chmod +x dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build"
+  }
+}

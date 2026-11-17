@@ -1,15 +1,16 @@
-import { chmod, mkdir, readFile, rm, writeFile } from "node:fs/promises";
-import { homedir } from "node:os";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
+import {
+  clearCredentials,
+  getCredentialsPath,
+  readCredentials,
+  resolveAuthToken as resolveSharedAuthToken,
+  writeCredentials,
+} from "@devpass/cli-core";
 
 export const DEFAULT_API_URL = "https://rundeploy.ru";
 
-export interface DevpassCredentials {
-  apiKey?: string;
-  apiUrl?: string;
-  email?: string;
-  updatedAt?: string;
-}
+export { clearCredentials, getCredentialsPath, readCredentials, writeCredentials };
 
 export interface LocalProjectLink {
   projectId: string;
@@ -18,53 +19,8 @@ export interface LocalProjectLink {
   apiUrl?: string;
 }
 
-export function getCredentialsPath(): string {
-  const xdgConfig = process.env.XDG_CONFIG_HOME;
-  const baseDir = xdgConfig ? resolve(xdgConfig) : join(homedir(), ".config");
-  return join(baseDir, "devpass", "credentials.json");
-}
-
-export async function readCredentials(): Promise<DevpassCredentials> {
-  const path = getCredentialsPath();
-  try {
-    const raw = await readFile(path, "utf8");
-    const parsed = JSON.parse(raw);
-    return typeof parsed === "object" && parsed !== null ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-
-export async function writeCredentials(creds: DevpassCredentials): Promise<string> {
-  const path = getCredentialsPath();
-  const dir = resolve(path, "..");
-  await mkdir(dir, { recursive: true, mode: 0o700 });
-  const payload = JSON.stringify(
-    {
-      ...creds,
-      updatedAt: new Date().toISOString(),
-    },
-    null,
-    2,
-  );
-  await writeFile(path, `${payload}\n`, { encoding: "utf8", mode: 0o600 });
-  await chmod(path, 0o600).catch(() => undefined);
-  return path;
-}
-
-export async function clearCredentials(): Promise<void> {
-  const path = getCredentialsPath();
-  await rm(path, { force: true });
-}
-
 export async function resolveAuthToken(explicitToken?: string): Promise<string | null> {
-  if (explicitToken?.trim()) return explicitToken.trim();
-  if (process.env.RUNDEPLOY_TOKEN?.trim()) return process.env.RUNDEPLOY_TOKEN.trim();
-  if (process.env.DEVPASS_TOKEN?.trim()) return process.env.DEVPASS_TOKEN.trim();
-  if (process.env.DEVPASS_API_KEY?.trim()) return process.env.DEVPASS_API_KEY.trim();
-
-  const creds = await readCredentials();
-  return creds.apiKey?.trim() || null;
+  return resolveSharedAuthToken(explicitToken, ["RUNDEPLOY_TOKEN"]);
 }
 
 export async function resolveApiUrl(explicitUrl?: string): Promise<string> {
@@ -72,8 +28,7 @@ export async function resolveApiUrl(explicitUrl?: string): Promise<string> {
   if (process.env.RUNDEPLOY_API_URL?.trim()) {
     return process.env.RUNDEPLOY_API_URL.trim().replace(/\/+$/, "");
   }
-  const creds = await readCredentials();
-  return (creds.apiUrl?.trim() || DEFAULT_API_URL).replace(/\/+$/, "");
+  return DEFAULT_API_URL;
 }
 
 export function getLocalLinkPath(cwd: string = process.cwd()): string {
